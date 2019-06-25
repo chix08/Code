@@ -1,48 +1,50 @@
-import array as ar
+from sys import stdin as s
+from sys import stdout
+
+
+def solve(k, l, r, li, val):
+    ans = 0
+    if val % 2 == 0:
+        ans = li[r - 1] - li[l - 1] + 1
+    else:
+        ans = li[r - 1] - li[l - 1]
+    if k == 0:
+        return ans
+    else:
+        return r - l + 1 - ans
+
+
 def gcd(a, b):
-    if a == 0:
-        return b
-    return gcd(b % a, a)
-
-import numpy as np
-temp_list = list(map(int,(input().split())))
-arr = np.array(temp_list)
+    if (a == 0):
+        return b;
+    return gcd(b % a, a);
 
 
+def elim(m, n):
+    d = gcd(m, n)
+    num = int(m / d)
+    den = int(n / d)
+    return [num, den]
 
 
-
-
-
-
-
-
-#
-# test = int(input())
-# while test:
-#     test -= 1
-#     n, q = map(int, (input().split()))
-#     arr = ar.array('L', (map(int, (input().split()))))
-#     while q:
-#         q -= 1
-#         k, l, r = map(int, (input().split()))
-#         l -= 1
-#         even = 0
-#         for i in range(l, r):
-#             if arr[i] % 2 == 0:
-#                 even += 1
-#         if k:
-#             if (r - l - even):
-#                 b = gcd((r - l - even), (r - l))
-#                 print(int((r - l - even) / b), int((r - l) / b))
-#             else:
-#                 print('0')
-#
-#         else:
-#             if even:
-#                 b = gcd(even, (r - l))
-#                 print(int(even / b), int((r - l) / b))
-#
-#             else:
-#                 print('0')
-#
+allans = []
+t = int(s.readline())
+for _ in range(t):
+    n, q = map(int, s.readline().split(" "))
+    li1 = [int(x) for x in s.readline().strip().split(" ")]
+    li2 = []
+    count = 0
+    for i in li1:
+        if i % 2 == 0:
+            count += 1
+        li2.append(count)
+    for i in range(q):
+        k, l, r = [int(x) for x in s.readline().split(" ")]
+        ans = solve(k, l, r, li2, li1[l - 1])
+        if ans == 0 or ans == r - l + 1:
+            allans.append("{}\n".format(int(ans / (r - l + 1))))
+        else:
+            ans = elim(ans, r - l + 1)
+            allans.append("{} {}\n".format(ans[0], ans[1]))
+allans = ''.join(allans)
+stdout.write(allans)
