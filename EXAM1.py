@@ -1,7 +1,6 @@
 test = int(input())
 for _ in range(test):
     num = int(input())
-    num -= 1
     i = 0
     count = 0
     right_str = input()
@@ -15,11 +14,5 @@ for _ in range(test):
             count += 1
         else:
             i += 2
+    print (count)
 
-    if answer_str[-1] == right_str[-1] and right_str[-1] != 'N':
-        count += 1
-        print(count)
-    else:
-        print(count)
-    # DDCABCCCA
-    # DNCBBBBBA
