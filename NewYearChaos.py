@@ -1,4 +1,4 @@
-# !/bin/python3
+#!/bin/python3
 
 import math
 import os
@@ -10,23 +10,30 @@ import sys
 # Complete the minimumBribes function below.
 def minimumBribes(q):
     count = 0
-    a = [i for i in range(1, len(q) + 1)]
-    print(a)
-    for j, i in zip(q, a):
-        print(i, j)
-        if (j - i > 2):
-            return ('Too chaotic')
-        if (j - i > 0):
-            count = count + (j - i)
+    for ind, val in enumerate(q):
+        ind += 1
+        if (val - ind > 2):
+            print("Too chaotic")
+            return
+
+        compare = q[ind - 1]
+        print(q[val-2:ind - 1])
+        for i in q[max(val-2 , 0):ind - 1]:
+            if (compare < i):
+                count += 1
+
     print(count)
-    return count
+try:
 
+except Exception as e
 
-t = int(input())
-
-for t_itr in range(t):
-    n = int(input())
-
-    q = list(map(int, input().rstrip().split()))
-
-    minimumBribes(q)
+if __name__ == '__main__':
+    # t = int(input())
+    t = 1
+    for t_itr in range(t):
+        # n = int(input())
+        #
+        # q = list(map(int, input().rstrip().split()))
+        q = [1, 2, 5, 3, 7, 8, 6, 4]
+        # q = [2,1,5,3,4]
+        minimumBribes(q)
