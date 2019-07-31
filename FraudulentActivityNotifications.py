@@ -2,7 +2,7 @@ import numpy as np
 arr = [1,3,4,5,6,7,8,9,10]
 
 def mymedian(arr):
-    return (sum(arr) / )
+    return (sum(arr))
 
 d = int(input())
 t = d
