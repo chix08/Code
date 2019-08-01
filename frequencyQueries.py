@@ -1,64 +1,46 @@
 def freqQuery(queries):
     d = {}
+    a = []
     check = {}
-    oldkey = 0
-    newkey = 0
     for q in queries:
-        try:
-            if q[0] == 1:
-                try:
-                    oldkey = d[q[1]]
-                except:
-                    oldkey = 0
-                d[q[1]] = d.get(q[1], 0)+1
-                newkey = d[q[1]]
-
-            elif q[0] == 2:
+        oldKey = 0
+        newKey = 0
+        done = True
+        print(q)
+        if q[0] == 1:
+            try:
+                oldKey = d[q[1]]
+                check[oldKey].remove('True')
+                d[q[1]] += 1
+                newKey = d[q[1]]
+                check[newKey] = check.get(newKey, [])
+                check[newKey].append('True')
+            except:
+                d[q[1]] = 1
+                newKey = 1
+                check[newKey] = check.get(newKey, [])
+                check[newKey].append('True')
+        elif q[0] == 2:
+            try:
+                oldKey = d[q[1]]
+                check[oldKey].remove('True')
                 d[q[1]] -= 1
-            else:
-                print(d[q[1]])
-        except Exception as e:
-            print(e)
-    return
+                newKey = d[q[1]]
+                check[newKey].append('True')
+            except:
+                continue
+        else:
+            try:
+                if True in check[q[1]]:
+                    a.append('1')
+                else:
+                    a.append('0')
+            except:
+                a.append('0')
+    return a
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    # di = {}
-    # a = []
-    # check = []
-    # for q in queries:
-    #     done = True
-    #     try:
-    #         if q[0] == 1:
-    #             di[q[1]] = di.get(q[1], 0)+1
-    #         elif q[0] == 2:
-    #             di[q[1]] = di[q[1]] - 1
-    #         else:
-    #             for ch in di.values():
-    #                 if ch == q[1]:
-    #                     a.append('1')
-    #                     done = False
-    #                     break
-    #             if(done):
-    #                 a.append('0')
-    #
-    #     except:
-    #         print('EXCEPTION')
-    # print(a)
-
-
-queries = [[1, 5], [1, 6], [2, 7], [3, 2], [1, 10], [1, 10], [1, 6], [2, 5], [3, 2]]
+queries = [[1, 5], [1, 6], [1, 5], [1, 6], [2, 5], [2, 5], [2 ,5] , [2,6],[2,6]]
 ans = freqQuery(queries)
