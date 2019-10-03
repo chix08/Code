@@ -1,0 +1,134 @@
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2099678400137828"
+  },
+  "message":{
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"Try the postback button!",
+        "buttons":[
+          {
+            "type":"postback",
+            "title":"Postback",
+            "payload":"DEVELOPER_DEFINED_PAYLOAD"
+          },
+          {
+            "type":"postback",
+            "title":"Postback1",
+            "payload":"DEVELOPER_DEFINED_PAYLOAD"
+          },
+          {
+            "type":"postback",
+            "title":"Postback2",
+            "payload":"DEVELOPER_DEFINED_PAYLOAD"
+          }
+        ]
+      }
+    }
+  }
+}' "https://graph.facebook.com/v4.0/me/messages?access_token=AAAAAAcUdUHoBAGGhb347heA3QWZAPiW2ZAHdzsAe89BwfFZArc89yvFqBGmkUZBxi68IvyFjH5lhSLoWjF2Bci8Ye4tTFZBwLZAKwRqTwwqmKdKnEq3epY4fqJIDw3NbVWAMJ55ZC5rZAtA08AOBjKuNEnzZCtm40CresWpiPB5IfpfZB9L8M0chFKPFND85zlmQsZD"
+
+
+
+
+
+
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "messaging_type": "Response", #RESPONSE, UPDATE, MESSAGE_TAG
+  "recipient": {
+    "id": "2099678400137828" #Sender ID
+  },
+  "message": {
+    "text": "hello, world!"
+  }
+}' "https://graph.facebook.com/v4.0/me/messages?access_token=AAAAAAcUdUHoBAGGhb347heA3QWZAPiW2ZAHdzsAe89BwfFZArc89yvFqBGmkUZBxi68IvyFjH5lhSLoWjF2Bci8Ye4tTFZBwLZAKwRqTwwqmKdKnEq3epY4fqJIDw3NbVWAMJ55ZC5rZAtA08AOBjKuNEnzZCtm40CresWpiPB5IfpfZB9L8M0chFKPFND85zlmQsZD"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------
+
+{'object': 'page', 'entry': [{'id': '108104520591699', 'time': 1570117755523, 'messaging': [{'sender': {'id': '2099678400137828'}, 'recipient': {'id': '108104520591699'}, 'timestamp': 1570117755049, 'message': {'mid': 'tdY5J11C9RiQsGttqZVsdjpOYF2hsbM34pilbEVoqaVcY7fnDLIA9B0dts5H8gezWi82o2FyYHGJ6CRXwjQUnw', 'text': 'Hey'}}]}]}
+
+
+
+------------------------------------------------
+
+Postback:
+
+{
+   "object":"page",
+   "entry":[
+      {
+         "id":"108104520591699",
+         "time":1570118037894,
+         "messaging":[
+            {
+               "sender":{
+                  "id":"2099678400137828"
+               },
+               "recipient":{
+                  "id":"108104520591699"
+               },
+               "timestamp":1570118037050,
+               "postback":{
+                  "title":"Postback2",
+                  "payload":"DEVELOPER_DEFINED_PAYLOAD"
+               }
+            }
+         ]
+      }
+   ]
+}
+
+
+--------------------
+
+Message:
+{
+   "object":"page",
+   "entry":[
+      {
+         "id":"108104520591699",
+         "time":1570117755523,
+         "messaging":[
+            {
+               "sender":{
+                  "id":"2099678400137828"
+               },
+               "recipient":{
+                  "id":"108104520591699"
+               },
+               "timestamp":1570117755049,
+               "message":{
+                  "mid":"tdY5J11C9RiQsGttqZVsdjpOYF2hsbM34pilbEVoqaVcY7fnDLIA9B0dts5H8gezWi82o2FyYHGJ6CRXwjQUnw",
+                  "text":"Hey"
+               }
+            }
+         ]
+      }
+   ]
+}
+
+
+
+
+
+
+
+

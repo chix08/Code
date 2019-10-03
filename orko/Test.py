@@ -1,17 +1,12 @@
 from flask import Flask, request
 
-# import logging
 
 app = Flask(__name__)
-# logging.basicConfig(filename="newfile.log",
-#                     format='%(asctime)s %(message)s',
-#                     filemode='w')
+
 FB_API_URL = 'https://graph.facebook.com/v2.6/me/messages'
 VERIFY_TOKEN = 'Token'  # <paste your verify token here>
-PAGE_ACCESS_TOKEN = 'EAAiLqcUdUHoBABxHBM8qqR3kN44DTFPju1amv54IGX7NrU506SQiWdZA5AZCczaIRS7S3M8TtVaQuerVDEQsbOu63b34E5zYYY4o2OcvDQ6tSRfJNPcJQlg66oeO4Dd3B8ld18LvY1zzzDKj1cJx5GYIzlkro0kMZBBtrDeTkBIfm66RnkZAGTaD3Nnmk0IZD'
+PAGE_ACCESS_TOKEN = 'AAAAAAcUdUHoBABxHBM8qqR3kN44DTFPju1amv54IGX7NrU506SQiWdZA5AZCczaIRS7S3M8TtVaQuerVDEQsbOu63b34E5zYYY4o2OcvDQ6tSRfJNPcJQlg66oeO4Dd3B8ld18LvY1zzzDKj1cJx5GYIzlkro0kMZBBtrDeTkBIfm66RnkZAGTaD3Nnmk0IZD'
 
-
-# logger = logging.getLogger()
 
 @app.route('/', methods=['GET'])
 def handle_verification():
@@ -38,6 +33,9 @@ def handle_message():
                     sender_id = messaging_event["sender"]["id"]
                     recipient_id = messaging_event["recipient"]["id"]
                     message_text = messaging_event["message"]["text"]
+                    print('sender_id',sender_id)
+                    print('r_id',recipient_id)
+                    print('message',message_text)
                     send_message_response(sender_id, "Hello")
 
     return "ok"
@@ -73,3 +71,48 @@ def send_message_response(sender_id, message_text):
 
 if __name__ == "__main__":
     app.run()
+
+#
+# curl -X POST -H "Content-Type: application/json" -d '{
+#   "messaging_type": "Response", #RESPONSE, UPDATE, MESSAGE_TAG
+#   "recipient": {
+#     "id": "2099678400137828" #Sender ID
+#   },
+#   "message": {
+#     "text": "hello, world!"
+#   }
+# }' "https://graph.facebook.com/v4.0/me/messages?access_token=AAAAAAcUdUHoBAGGhb347heA3QWZAPiW2ZAHdzsAe89BwfFZArc89yvFqBGmkUZBxi68IvyFjH5lhSLoWjF2Bci8Ye4tTFZBwLZAKwRqTwwqmKdKnEq3epY4fqJIDw3NbVWAMJ55ZC5rZAtA08AOBjKuNEnzZCtm40CresWpiPB5IfpfZB9L8M0chFKPFND85zlmQsZD"
+
+
+#
+# curl -X POST -H "Content-Type: application/json" -d '{
+#   "recipient":{
+#     "id":"2099678400137828"
+#   },
+#   "message":{
+#     "attachment":{
+#       "type":"template",
+#       "payload":{
+#         "template_type":"button",
+#         "text":"Try the postback button!",
+#         "buttons":[
+#           {
+#             "type":"postback",
+#             "title":"Postback",
+#             "payload":"DEVELOPER_DEFINED_PAYLOAD"
+#           },
+#           {
+#             "type":"postback",
+#             "title":"Postback1",
+#             "payload":"DEVELOPER_DEFINED_PAYLOAD"
+#           },
+#           {
+#             "type":"postback",
+#             "title":"Postback2",
+#             "payload":"DEVELOPER_DEFINED_PAYLOAD"
+#           }
+#         ]
+#       }
+#     }
+#   }
+# }' "https://graph.facebook.com/v4.0/me/messages?access_token=AAAAAAcUdUHoBAGGhb347heA3QWZAPiW2ZAHdzsAe89BwfFZArc89yvFqBGmkUZBxi68IvyFjH5lhSLoWjF2Bci8Ye4tTFZBwLZAKwRqTwwqmKdKnEq3epY4fqJIDw3NbVWAMJ55ZC5rZAtA08AOBjKuNEnzZCtm40CresWpiPB5IfpfZB9L8M0chFKPFND85zlmQsZD"
