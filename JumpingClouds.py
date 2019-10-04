@@ -6,13 +6,11 @@ def jumpingOnClouds(c):
     count = 0
 
     while (i <= len(c)):
-        print('start')
         try:
             if (not c[i + 2]):
                 i += 2
                 count += 1
                 continue
-
             if (not c[i + 1]):
                 i += 1
                 count += 1
