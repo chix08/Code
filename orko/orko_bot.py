@@ -1,5 +1,6 @@
 from flask import Flask, request
-
+import requests
+import json
 
 app = Flask(__name__)
 
@@ -21,9 +22,46 @@ def handle_message():
     '''
     Handle messages sent by facebook messenger to the applicaiton
     '''
-    data = request.get_json()
-    print(data)
+    try:
+        data = request.get_json()
+        print(data)
+        id = data['entry'][0]['messaging'][0]['sender']['id']
+        print(id)
+        text = data['entry'][0]['messaging'][0]['message']['text']
+        print(text)
+        send_response(id)
+    except KeyError:
+        print("Key Error")
     return "ok"
+def send_response(id):
+    print("in ID",id)
+    name = get_name(id)
+    message_text = "Hi"+" "+name
+    requests.post("https://graph.facebook.com/v2.6/me/messages",
+
+                  params={"access_token": PAGE_ACCESS_TOKEN},
+
+                  headers={"Content-Type": "application/json"},
+
+                  data=json.dumps({
+                      "recipient": {"id": id},
+                      "message": {"text": message_text}
+                  }))
+    return "ok"
+def get_name(id):
+    print('Get Name',id)
+    url = "https://graph.facebook.com/"+id
+    print("url",url)
+    response = requests.get(url=url,
+                 params={
+                 "fields":"first_name,last_name,profile_pic",
+                 "access_token": PAGE_ACCESS_TOKEN
+                 },
+    )
+
+    data =json.loads(response.content.decode("utf-8"))
+    name = data['first_name']+" "+data['last_name']
+    return name
 
 if __name__ == "__main__":
     app.run()

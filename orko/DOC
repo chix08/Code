@@ -135,7 +135,25 @@ curl -X POST -H "Content-Type: application/json" -d '{
 
 
 
+curl -X POST -H "Content-Type: application/json" -d '{
+  "messaging_type": "Response"
+  "recipient": {
+    "id": "2099678400137828"
+  },
+  "message": {
+    "text": "hello, world!"
+  }
+}' "https://graph.facebook.com/v4.0/me/messages?access_token=EAAiLqcUdUHoBAGGhb347heA3QWZAPiW2ZAHdzsAe89BwfFZArc89yvFqBGmkUZBxi68IvyFjH5lhSLoWjF2Bci8Ye4tTFZBwLZAKwRqTwwqmKdKnEq3epY4fqJIDw3NbVWAMJ55ZC5rZAtA08AOBjKuNEnzZCtm40CresWpiPB5IfpfZB9L8M0chFKPFND85zlmQsZD"
 
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2099678400137828"
+  },
+  "message":{
+    "text":"watching family man?"
+  }
+}' "https://graph.facebook.com/v4.0/me/messages?access_token=EAAiLqcUdUHoBAGGhb347heA3QWZAPiW2ZAHdzsAe89BwfFZArc89yvFqBGmkUZBxi68IvyFjH5lhSLoWjF2Bci8Ye4tTFZBwLZAKwRqTwwqmKdKnEq3epY4fqJIDw3NbVWAMJ55ZC5rZAtA08AOBjKuNEnzZCtm40CresWpiPB5IfpfZB9L8M0chFKPFND85zlmQsZD"
+ 
 
 
 
@@ -389,5 +407,8 @@ curl -X POST -H "Content-Type: application/json" -d '{
   }
 }' "https://graph.facebook.com/v4.0/me/messages?access_token=EAAiLqcUdUHoBAGGhb347heA3QWZAPiW2ZAHdzsAe89BwfFZArc89yvFqBGmkUZBxi68IvyFjH5lhSLoWjF2Bci8Ye4tTFZBwLZAKwRqTwwqmKdKnEq3epY4fqJIDw3NbVWAMJ55ZC5rZAtA08AOBjKuNEnzZCtm40CresWpiPB5IfpfZB9L8M0chFKPFND85zlmQsZD"
 
+-----------------------------
+
+curl -X GET "https://graph.facebook.com/2099678400137828?fields=first_name,last_name,profile_pic&access_token=EAAiLqcUdUHoBAGGhb347heA3QWZAPiW2ZAHdzsAe89BwfFZArc89yvFqBGmkUZBxi68IvyFjH5lhSLoWjF2Bci8Ye4tTFZBwLZAKwRqTwwqmKdKnEq3epY4fqJIDw3NbVWAMJ55ZC5rZAtA08AOBjKuNEnzZCtm40CresWpiPB5IfpfZB9L8M0chFKPFND85zlmQsZD"
 
 
