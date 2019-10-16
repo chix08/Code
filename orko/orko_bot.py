@@ -17,6 +17,8 @@ def handle_verification():
     else:
         print("Wrong token")
         return "Error, wrong validation token"
+
+
 @app.route('/', methods=['POST'])
 def handle_message():
     '''
@@ -33,6 +35,8 @@ def handle_message():
     except KeyError:
         print("Key Error")
     return "ok"
+
+
 def send_response(id):
     print("in ID",id)
     name = get_name(id)
