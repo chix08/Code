@@ -10,6 +10,8 @@ PAGE_ACCESS_TOKEN = 'AAALLLcUdUHoBABxHBM8qqR3kN44DTFPju1amv54IGX7NrU506SQiWdZA5A
 start_quiz = False
 first_name = ''
 last_name = ''
+
+
 @app.route('/', methods=['GET'])
 def handle_verification():
     if (request.args.get('hub.verify_token', '') == VERIFY_TOKEN):
@@ -26,11 +28,11 @@ def handle_message():
     Handle messages sent by facebook messenger to the applicaiton
     '''
     data = request.get_json()
-    id = try_ex(lambda : data['entry'][0]['messaging'][0]['sender']['id'])
-    text = try_ex(lambda : data['entry'][0]['messaging'][0]['message']['text'])
+    id = try_ex(lambda: data['entry'][0]['messaging'][0]['sender']['id'])
+    text = try_ex(lambda: data['entry'][0]['messaging'][0]['message']['text'])
     # send_response(id)
     # quiz_start(id)
-    ready_quiz(id,message="let's start")
+    ready_quiz(id, message="let's start")
     return "ok"
 
 
@@ -55,39 +57,40 @@ def ready_quiz(id, message):
     message_text = message
 
     data = {
-                      "recipient": {"id": id},
-                      "message": {
-                          "attachment": {
-                              "type":"template",
-                              "payload":{
-                                  "template_type": "generic",
-                                  "elements":[
-                                      {
-                                          "title":message_text,
-                                          "buttons":[
-                                              {
-                                                  "type": "postback",
-                                                  "title": " Yes",
-                                                  "payload": "yes"
-                                              },
-                                              {
-                                                  "type": "postback",
-                                                  "title": " No",
-                                                  "payload": "no"
-                                              }
-                                          ]
-                                      }
-                                  ]
-                              }
-                          }
-                      }
-                  }
+        "recipient": {"id": id},
+        "message": {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "generic",
+                    "elements": [
+                        {
+                            "title": message_text,
+                            "buttons": [
+                                {
+                                    "type": "postback",
+                                    "title": " Yes",
+                                    "payload": "yes"
+                                },
+                                {
+                                    "type": "postback",
+                                    "title": " No",
+                                    "payload": "no"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    }
     data = json.dumps(data)
     url = 'https://graph.facebook.com/v4.0/me/messages?access_token=' + PAGE_ACCESS_TOKEN
     headers = {"Content-Type": "application/json"}
     response = requests.post(url=url, headers=headers, data=data)
 
     return response
+
 
 def get_name(id):
     print('Get Name', id)
@@ -100,7 +103,6 @@ def get_name(id):
                             },
                             )
 
-
     data = json.loads(response.content.decode("utf-8"))
     global first_name
     first_name = data['first_name']
@@ -109,11 +111,11 @@ def get_name(id):
     name = first_name + " " + last_name
     return name
 
+
 def quiz_start(id):
     message = "Are you ready for the quiz"
-    response = ready_quiz(id,message)
+    response = ready_quiz(id, message)
     return response
-
 
 
 def try_ex(func):
@@ -128,6 +130,7 @@ def try_ex(func):
         return func()
     except KeyError:
         return None
+
 
 if __name__ == "__main__":
     app.run()
