@@ -1,7 +1,6 @@
 from flask import Flask, request
 import requests
 import json
-# import resource_orko
 from orko import resource_orko
 
 app = Flask(__name__)
@@ -13,6 +12,7 @@ quiz = False
 first_name = ''
 last_name = ''
 id = 0
+
 
 @app.route('/', methods=['GET'])
 def handle_verification():
@@ -49,6 +49,7 @@ def handle_message():
         else:
             resume_quiz()
 
+
 def welcome():
     name = get_name(id)
     message_text = resource_orko.WELCOME.format(name)
@@ -64,78 +65,123 @@ def welcome():
                   }))
     help_menu()
 
-def start_quiz():
 
+def start_quiz():
     print("start_quiz")
 
-def help_menu():
 
-    r =requests.post("https://graph.facebook.com/v2.6/me/messages",
+def help_menu():
+    data = create_data(resource_orko.HELP_OPTIONS)
+
+    requests.post("https://graph.facebook.com/v2.6/me/messages",
 
                   params={"access_token": PAGE_ACCESS_TOKEN},
 
                   headers={"Content-Type": "application/json"},
 
-                  data= json.dumps({
-                      "recipient":{"id": id},
-                      "message":{
-                          "attachment":{
-                              "type":"template",
-                              "payload": {
-                                  "template_type": "generic",
-                                  "elements": [
-                                      {
-                                          "title": "Swipe left/right for more options.",
-                                          "buttons": [
-                                              {
-                                                  "type": "postback",
-                                                  "title": "Quiz",
-                                                  "payload": "Quiz"
-                                              },
-                                              {
-                                                  "type": "postback",
-                                                  "title": "Quiz",
-                                                  "payload": "Quiz"
-                                              },
-                                              {
-                                                  "type": "postback",
-                                                  "title": "Quiz",
-                                                  "payload": "Quiz"
-                                              }
-                                          ]
-                                      },
-                                      {
-                                          "title": "Swipe left/right for more options.",
-                                          "buttons": [
-                                              {
-                                                  "type": "postback",
-                                                  "title": "Quiz",
-                                                  "payload": "Quiz"
-                                              },
-                                              {
-                                                  "type": "postback",
-                                                  "title": "Quiz",
-                                                  "payload": "Quiz"
-                                              },
-                                              {
-                                                  "type": "postback",
-                                                  "title": "Quiz",
-                                                  "payload": "Quiz"
-                                              }
-                                          ]
-                                      }
-                                  ]
-                          }
-                      }
-                  }
-                  }))
-    print(r)
+                  data=data
+                  )
+
     return
 
+
+def create_data(options):
+    print(options)
+    if len(options) <= 3:
+        data = json.dumps({
+            "recipient": {"id": id},
+            "message": {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "generic",
+                        "elements": [
+                            {
+                                "title": "options",
+                                "buttons": [
+                                    {
+                                        "type": "postback",
+                                        "title": try_ex(lambda: options[0]),
+                                        "payload": try_ex(lambda: options[0])
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": try_ex(lambda: options[1]),
+                                        "payload": try_ex(lambda: options[1])
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": try_ex(lambda: options[2]),
+                                        "payload": try_ex(lambda: options[2])
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        })
+        return data
+    if 3 < len(options) <= 6:
+        data = json.dumps({
+            "recipient": {"id": id},
+            "message": {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "generic",
+                        "elements": [
+                            {
+                                "title": "Swipe left/right for more options.",
+                                "buttons": [
+                                    {
+                                        "type": "postback",
+                                        "title": try_ex(lambda: options[0]),
+                                        "payload": try_ex(lambda: options[0])
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": try_ex(lambda: options[1]),
+                                        "payload": try_ex(lambda: options[1])
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": try_ex(lambda: options[2]),
+                                        "payload": try_ex(lambda: options[2])
+                                    }
+                                ]
+                            },
+                            {
+                                "title": "Swipe left/right for more options.",
+                                "buttons": [
+                                    {
+                                        "type": "postback",
+                                        "title": try_ex(lambda: options[3]),
+                                        "payload": try_ex(lambda: options[3])
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": try_ex(lambda: options[4]),
+                                        "payload": try_ex(lambda: options[4])
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": try_ex(lambda: options[5]),
+                                        "payload": try_ex(lambda: options[5])
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        })
+        return data
 
 
 def resume_quiz():
     print("resume_quiz")
+
 
 def get_name(id):
     print('Get Name', id)
@@ -156,6 +202,7 @@ def get_name(id):
     name = first_name + " " + last_name
     return name
 
+
 def try_ex(func):
     """
     Call passed in function in try block. If KeyError is encountered return None.
@@ -167,6 +214,9 @@ def try_ex(func):
         return func()
     except KeyError:
         return None
+    except IndexError:
+        return "-----"
+
 
 if __name__ == "__main__":
     app.run()
