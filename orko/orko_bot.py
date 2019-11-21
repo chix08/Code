@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 FB_API_URL = 'https://graph.facebook.com/v2.6/me/messages'
 VERIFY_TOKEN = 'Token'  # <paste your verify token here>
-PAGE_ACCESS_TOKEN = 'EAAiLqcUdUHoBAGGhb347heA3QWZAPiW2ZAHdzsAe89BwfFZArc89yvFqBGmkUZBxi68IvyFjH5lhSLoWjF2Bci8Ye4tTFZBwLZAKwRqTwwqmKdKnEq3epY4fqJIDw3NbVWAMJ55ZC5rZAtA08AOBjKuNEnzZCtm40CresWpiPB5IfpfZB9L8M0chFKPFND85zlmQsZD'
+PAGE_ACCESS_TOKEN = '******cUdUHoBAGGhb347heA3QWZAPiW2ZAHdzsAe89BwfFZArc89yvFqBGmkUZBxi68IvyFjH5lhSLoWjF2Bci8Ye4tTFZBwLZAKwRqTwwqmKdKnEq3epY4fqJIDw3NbVWAMJ55ZC5rZAtA08AOBjKuNEnzZCtm40CresWpiPB5IfpfZB9L8M0chFKPFND85zlmQsZD'
 quiz = False
 first_name = ''
 last_name = ''
