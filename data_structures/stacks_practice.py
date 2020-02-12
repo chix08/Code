@@ -16,9 +16,11 @@ class Linkedlist:
             current.next = new_element
         else:
             self.head = new_element
-    def insert(self,new_element):
+
+    def insert(self, new_element):
         new_element.next = self.head
         self.head = new_element
+
     def delete_first(self):
         if self.head.next:
             self.head = self.head.next
@@ -35,4 +37,3 @@ ll.append(e1)
 ll.append(e2)
 ll.insert(e3)
 ll.delete_first()
-print()
