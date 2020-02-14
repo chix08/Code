@@ -1,0 +1,45 @@
+<html>
+
+<head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js">
+
+</script>
+</head>
+<body>
+
+<form id="form" action="" method="post">
+Name: <input type="text" name="name"><br>
+email: <input type="text" name="email"><br>
+phone: <input type="text" name="phone"><br>
+Name1: <input type="text" name="name1"><br>
+<input id="submit" type="button" onclick="myFunction()">
+</form>
+
+</body>
+<script>
+	
+function myFunction() {
+
+	
+  $.ajax({
+	
+    url: 'https://g9nj1vghcj.execute-api.ap-south-1.amazonaws.com/stage1/submit',
+    type: 'POST',
+    data: JSON.stringify({
+	 "name": "Vai",
+	 "phone": "12345",
+	 "email": "vaibhavsingh266@g.com",
+	 "name1": "duhdedw"
+	}),
+	contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    success : function(){
+		alert('hurrrraayy');
+	},
+	error : function(){
+		alert('errrrr');
+		}
+});    
+}
+</script>
+</html>
