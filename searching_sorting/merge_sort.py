@@ -1,30 +1,39 @@
-def merge(array, left, m , right):
-    sarray = array.copy()
-    print(array[left:m])
-    print(array[m:right])
-    i = left
-    j = m
-    sp = 0
-    while i < m and j < right:
-        if a[i] > a[j]:
-            sarray[sp] = a[j]
-            j += 1
-        else:
-            sarray[sp] = a[i]
+def mergesort(array):
+    left = 0
+    right = len(array)
+    mid = (left + right)//2
+    L = array[:mid]
+    R = array[mid:]
+    if mid > 0:
+        mergesort(L)
+        mergesort(R)
+        i = j = k = 0
+        while i < len(L) and j < len(R):
+            if L[i] < R[j]:
+                array[k] = L[i]
+                i+=1
+            else:
+                array[k] = R[j]
+                j+=1
+            print(array)
+            k+=1
+        while i < len(L):
+            array[k] = L[i]
             i += 1
-        sp += 1
+            k += 1
 
-    pass
+        while j < len(R):
+            array[k] = R[j]
+            j += 1
+            k += 1
 
 
 
 
-def mergesort(a, l , r):
-    if l < r:
-        m = (l + r)//2
-        mergesort(a, l , m)
-        print()
-        mergesort(a, m+1, l)
-a = [12, 11, 13, 5, 6, 7, 18]
 
-mergesort(a,0,len(a))
+
+
+
+arr = [16, 11, 13,1,3,9, 5, 6, 7]
+mergesort(arr)
+print()
