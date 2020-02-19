@@ -1,5 +1,6 @@
 order = []
 class Node:
+
     def __init__(self, data):
         self.left = None
         self.right = None
@@ -19,6 +20,41 @@ class Node:
                 i.pre_order()
             else:
                 continue
+    #Another way for preOrder
+    def preorderIterative(root):
+
+        if (root == None):
+            return
+
+        st = []
+
+        # start from root node (set current node to root node)
+        curr = root
+
+        # run till stack is not empty or current is
+        # not NULL
+        while (len(st) or curr != None):
+
+            # Print left children while exist
+            # and keep appending right into the
+            # stack.
+            while (curr != None):
+
+                print(curr.data, end=" ")
+
+                if (curr.right != None):
+                    st.append(curr.right)
+
+                curr = curr.left
+
+                # We reach when curr is NULL, so We
+            # take out a right child from stack
+            if (len(st) > 0):
+                curr = st[-1]
+                st.pop()
+
+
+
 
 
 root = Node('D')
