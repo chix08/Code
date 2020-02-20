@@ -116,7 +116,6 @@ class Node:
 
         # Run while first stack is not empty
         while s1:
-
             # Pop an item from s1 and
             # append it to s2
             node = s1.pop()
