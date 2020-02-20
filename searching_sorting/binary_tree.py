@@ -1,12 +1,15 @@
 order = []
 inorderseq = []
 st = []
+
+
 class Node:
 
     def __init__(self, data):
         self.left = None
         self.right = None
         self.data = data
+
     def pre_order(self):
         temp = []
         while self.left != None:
@@ -22,7 +25,8 @@ class Node:
                 i.pre_order()
             else:
                 continue
-    #Another way for preOrder
+
+    # Another way for preOrder
     def preorderIterative(root):
 
         if (root == None):
@@ -129,6 +133,7 @@ class Node:
         while s2:
             node = s2.pop()
             print node.data
+
 
 root = Node('D')
 root_l = Node('B')
