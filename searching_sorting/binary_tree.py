@@ -1,4 +1,6 @@
 order = []
+inorderseq = []
+st = []
 class Node:
 
     def __init__(self, data):
@@ -40,7 +42,7 @@ class Node:
             # stack.
             while (curr != None):
 
-                print(curr.data, end=" ")
+                print(curr.data)
 
                 if (curr.right != None):
                     st.append(curr.right)
@@ -53,6 +55,16 @@ class Node:
                 curr = st[-1]
                 st.pop()
 
+    def inorder(self):
+        while self.left != None:
+            st.append(self)
+            self = self.left
+        inorderseq.append(self.data)
+        while st:
+            n = st.pop()
+            inorderseq.append(n.data)
+            n = n.right
+            n.inorder()
 
 
 
@@ -72,5 +84,7 @@ test = Node('K')
 test2 = Node('S')
 leaf_root_l_r.left = test
 leaf_root_l_r.right = test2
-post_seq = root.pre_order()
-print(order)
+# post_seq = root.pre_order()
+# print(post_seq)
+root.inorder()
+print (inorderseq)
